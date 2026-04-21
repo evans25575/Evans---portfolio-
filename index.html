@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evans Kiplangat — R&D Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0b0f0e;
+      --bg2:      #111916;
+      --bg3:      #182218;
+      --green:    #3dffa0;
+      --green2:   #1adb7a;
+      --green3:   #0a5e35;
+      --text:     #e8f0eb;
+      --muted:    #7a9e87;
+      --border:   rgba(61,255,160,0.12);
+      --card:     rgba(24,34,24,0.85);
+      --serif:    'DM Serif Display', Georgia, serif;
+      --mono:     'DM Mono', monospace;
+      --sans:     'Outfit', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(11,15,14,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--green);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(61,255,160,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61,255,160,0.035) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 25s linear infinite;
+    }
+    @keyframes gridShift { to { background-position: 60px 60px; } }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,255,160,0.07) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s forwards;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s forwards;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--green);
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .hero-meta {
+      display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s forwards;
+    }
+    .hero-location {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .hero-location::before {
+      content: '◉';
+      color: var(--green);
+      font-size: 0.7rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      background: var(--green);
+      color: #0b0f0e;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn:hover { background: var(--green2); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--green);
+      border: 1px solid var(--green);
+    }
+    .btn-outline:hover { background: rgba(61,255,160,0.08); }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 4rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: var(--muted);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--green);
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 1.4rem;
+      line-height: 1.8;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+      border-radius: 4px;
+    }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .languages {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .lang-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .lang-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .pill {
+      background: rgba(61,255,160,0.07);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      font-family: var(--mono);
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-cat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-cat:hover { border-color: rgba(61,255,160,0.35); transform: translateY(-3px); }
+    .skill-cat-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .skill-cat-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .skill-cat-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 1.2rem;
+    }
+    .skill-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      background: rgba(61,255,160,0.07);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg2); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .project-card:hover { border-color: rgba(61,255,160,0.4); transform: translateY(-4px); }
+    .project-card.featured {
+      grid-column: span 2;
+      border-color: rgba(61,255,160,0.25);
+    }
+    .project-banner {
+      height: 6px;
+      background: linear-gradient(90deg, var(--green3), var(--green));
+    }
+    .project-card.featured .project-banner { height: 4px; background: var(--green); }
+    .project-body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
+    .project-type {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--green);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+    .project-impact {
+      background: rgba(61,255,160,0.05);
+      border-left: 2px solid var(--green);
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.4rem;
+      border-radius: 0 2px 2px 0;
+    }
+    .project-impact-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .project-impact-text {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .stack-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+    }
+    .project-links { display: flex; gap: 1rem; margin-top: auto; }
+    .project-link {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: opacity 0.2s;
+    }
+    .project-link:hover { opacity: 0.7; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg); }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-meta { padding-top: 0.2rem; }
+    .exp-period {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+    }
+    .exp-company {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .exp-role {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+    .exp-bullets li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--green);
+      font-size: 0.7rem;
+      top: 0.25rem;
+    }
+    .exp-bullets li strong { color: var(--text); font-weight: 500; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--bg2); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+    }
+    .testimonial-quote {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .testimonial-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .author-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--green3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+    .author-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .author-role {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .testimonial-note {
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-intro {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--card);
+    }
+    .contact-link:hover { color: var(--green); border-color: rgba(61,255,160,0.3); }
+    .contact-link-icon { font-size: 1.1rem; }
+    .contact-link-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--green);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .availability-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: rgba(61,255,160,0.08);
+      border: 1px solid rgba(61,255,160,0.25);
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.1rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+    .availability-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .form-input, .form-textarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      padding: 0.85rem 1rem;
+      border-radius: 3px;
+      outline: none;
+      resize: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: rgba(61,255,160,0.4);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); opacity: 0.5; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 1.8rem; }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--green); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 5rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      .hero-scroll { left: 1.5rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .project-card.featured { grid-column: span 1; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">EK · Data Analyst</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li><li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <p class="hero-tag">Available for hire · Immediate start</p>
+  <h1 class="hero-name">Evans<br><em>Kiplangat</em></h1>
+  <p class="hero-subtitle">
+    Data Analyst &amp; M&amp;E Specialist with expertise in statistical modelling, data engineering, machine learning, and financial analytics — bridging rigorous quantitative methods with real-world programme decisions across health, agriculture, and government in East Africa.
+  </p>
+  <div class="hero-meta">
+    <a href="#projects" class="btn">View My Work</a>
+    <a href="#" class="btn btn-outline" onclick="downloadCV(event)">Download CV ↓</a>
+    <span class="hero-location">Nairobi, Kenya · Open to remote</span>
+  </div>
+  <span class="hero-scroll">Scroll to explore</span>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2 class="section-title">I turn data<br>into decisions.</h2>
+      <div class="divider"></div>
+      <p>
+        I'm a data analyst and M&amp;E specialist with a <strong>BSc in Applied Statistics &amp; Computing</strong> (Moi University), a <strong>Google Data Analytics Professional Certificate</strong>, and <strong>CPA Intermediate level</strong> — bringing five-plus years of hands-on experience across digital health, agriculture, government, and fintech in East Africa. I'm also trained in <strong>Data Privacy &amp; Protection</strong> (APHRC), which shapes how I handle sensitive programme and health data responsibly.
+      </p>
+      <p>
+        My edge spans the full data value chain. On the technical side, I architect <strong>production-grade ETL pipelines</strong> (Kafka, Spark, PostgreSQL), build and deploy <strong>machine learning models</strong> (XGBoost, Random Forest, SHAP explainability), and design <strong>real-time Streamlit applications</strong> used by programme teams and lenders. On the financial side, my CPA training means I can engage directly with <strong>budgets, audit trails, and financial risk</strong> — not just operational data. <strong>I don't just build dashboards — I build accountability.</strong>
+      </p>
+      <p>
+        On the M&amp;E side, I design <strong>KPI frameworks, indicator tracking systems, and data quality workflows</strong> — and I've built county-level health reporting systems covering 41 counties and 205 facilities. Growing up in the Rift Valley gives me genuine field context for agricultural and community programmes: I understand what smallholder data actually looks like, where it breaks, and which analytical assumptions to question. <strong>That's the kind of local knowledge you can't import.</strong>
+      </p>
+      <div class="languages">
+        <div class="lang-title">Languages</div>
+        <div class="lang-pills">
+          <span class="pill">English — Fluent</span>
+          <span class="pill">Kiswahili — Fluent</span>
+          <span class="pill">Kalenjin / Nandi — Native</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-card">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Years of analytical experience across 4 sectors</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">41</div>
+        <div class="stat-label">Kenyan counties tracked in the MH M&amp;E Dashboard</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">8+</div>
+        <div class="stat-label">End-to-end projects published on GitHub</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">30%</div>
+        <div class="stat-label">Reduction in reporting turnaround at Amtech Technologies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Capabilities</div>
+  <h2 class="section-title reveal">What I bring<br>to the table.</h2>
+  <div class="divider"></div>
+  <div class="skills-grid">
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">📐</div>
+      <div class="skill-cat-name">Statistical Modelling</div>
+      <div class="skill-cat-desc">Regression, ANOVA, mixed models, hypothesis testing, power calculations, experimental design (RCT awareness, RCBD, stratified sampling).</div>
+      <div class="skill-tags">
+        <span class="skill-tag">R · lme4</span>
+        <span class="skill-tag">Python · Scikit-learn</span>
+        <span class="skill-tag">EDA</span>
+        <span class="skill-tag">Forecasting</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">🌍</div>
+      <div class="skill-cat-name">Agricultural & Geospatial Analytics</div>
+      <div class="skill-cat-desc">Climate and market data integration, spatial analysis for smallholder contexts, raster data concepts, iSDA soil data, CHIRPS/TAMSAT awareness.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">GeoPandas</span>
+        <span class="skill-tag">Plotly</span>
+        <span class="skill-tag">Streamlit</span>
+        <span class="skill-tag">Climate Data</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">🗄️</div>
+      <div class="skill-cat-name">Data Engineering</div>
+      <div class="skill-cat-desc">ETL pipeline design, PostgreSQL/MySQL, RESTful API integration, Apache Kafka & Spark, automated data ingestion and transformation.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Apache Kafka</span>
+        <span class="skill-tag">Spark</span>
+        <span class="skill-tag">Python Pipelines</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">📊</div>
+      <div class="skill-cat-name">M&E & Reporting Systems</div>
+      <div class="skill-cat-desc">KPI framework design, DHIS2-style workflows, survey data analysis, impact reporting, data quality validation, decision-ready briefs for non-technical audiences.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">DHIS2-style</span>
+        <span class="skill-tag">KPI Design</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">🤖</div>
+      <div class="skill-cat-name">Machine Learning</div>
+      <div class="skill-cat-desc">Classification and regression models for risk estimation, feature importance, Random Forest, XGBoost, predictive modelling on structured datasets.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">RandomForest</span>
+        <span class="skill-tag">XGBoost</span>
+        <span class="skill-tag">Scikit-learn</span>
+        <span class="skill-tag">Feature Analysis</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">🔁</div>
+      <div class="skill-cat-name">Reproducible Research</div>
+      <div class="skill-cat-desc">Version-controlled codebases, Jupyter Notebooks, Git/GitHub, reusable analysis templates, clear documentation and institutional knowledge management.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git / GitHub</span>
+        <span class="skill-tag">Jupyter</span>
+        <span class="skill-tag">R Markdown</span>
+        <span class="skill-tag">Documentation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title reveal">Projects that<br>prove the point.</h2>
+  <div class="divider"></div>
+  <div class="projects-grid">
+
+    <div class="project-card featured reveal">
+      <div class="project-banner"></div>
+      <div class="project-body">
+        <div class="project-type">🌱 Agricultural Analytics · Live Demo</div>
+        <div class="project-title">SmartCrop Lite — Agricultural Decision-Support System</div>
+        <div class="project-desc">
+          A Streamlit-based decision-support tool built for smallholder farmers in East Africa. Integrates real-time market price data and climate alerts to help farmers optimise planting schedules and selling windows — the kind of intelligence that previously only large agribusinesses could access.
+        </div>
+        <div class="project-impact">
+          <div class="project-impact-label">Why it matters</div>
+          <div class="project-impact-text">Directly aligned with One Acre Fund and similar organisations' missions: putting data-driven agronomic recommendations in the hands of farmers at scale, through an interface designed for non-technical users at the farm level.</div>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Streamlit</span>
+          <span class="stack-tag">Pandas</span>
+          <span class="stack-tag">Plotly</span>
+          <span class="stack-tag">Climate Data Integration</span>
+          <span class="stack-tag">Market Price APIs</span>
+        </div>
+        <div class="project-links">
+          <a href="https://smartcrop-lite-bjjh8evg2pyzjwnwymzmwb.streamlit.app/" class="project-link" target="_blank">↗ Live Demo</a>
+          <a href="https://github.com/evans25575" class="project-link" target="_blank">⌥ GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card featured reveal">
+      <div class="project-banner"></div>
+      <div class="project-body">
+        <div class="project-type">🏥 Health M&E · Live Demo</div>
+        <div class="project-title">Kenya Mental Health M&E Dashboard</div>
+        <div class="project-desc">
+          A research-grade monitoring and evaluation system tracking mental health service delivery across all 41 Kenyan counties and 205 health facilities — covering 4,920 records across 24 monthly reporting periods. Built to Ministry of Health / DHIS2 data standards.
+        </div>
+        <div class="project-impact">
+          <div class="project-impact-label">Key findings surfaced</div>
+          <div class="project-impact-text">333,955 total screenings tracked. Treatment gap of 25–70% identified across counties, with average unmet need of 159,706 patients — quantified and visualised for programme managers to act on.</div>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Pandas</span>
+          <span class="stack-tag">R</span>
+          <span class="stack-tag">Power BI</span>
+          <span class="stack-tag">Streamlit</span>
+          <span class="stack-tag">DHIS2-style Workflows</span>
+        </div>
+        <div class="project-links">
+          <a href="https://kenya-mh-dashboard-9y5huxwyek9bnwpjms9ksv.streamlit.app/" class="project-link" target="_blank">↗ Live Demo</a>
+          <a href="https://github.com/evans25575" class="project-link" target="_blank">⌥ GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-banner"></div>
+      <div class="project-body">
+        <div class="project-type">📈 Statistical Analysis · R</div>
+        <div class="project-title">Supermarket Sales Analysis & Forecasting</div>
+        <div class="project-desc">Panel transaction data analysis using regression and mixed models (lme4) to estimate treatment effects of seasonal interventions and produce outcome forecasts — with reusable, documented R templates.</div>
+        <div class="project-stack">
+          <span class="stack-tag">R</span>
+          <span class="stack-tag">lme4</span>
+          <span class="stack-tag">SQL</span>
+          <span class="stack-tag">Mixed Models</span>
+          <span class="stack-tag">Regression</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/evans25575" class="project-link" target="_blank">⌥ GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-banner"></div>
+      <div class="project-body">
+        <div class="project-type">💳 Predictive Modelling · Python</div>
+        <div class="project-title">Loan Default Prediction System</div>
+        <div class="project-desc">Machine learning classification models (Random Forest, XGBoost) to estimate credit risk from structured financial data. Includes a Streamlit demo with full feature importance analysis and model interpretability.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Scikit-learn</span>
+          <span class="stack-tag">RandomForest</span>
+          <span class="stack-tag">XGBoost</span>
+          <span class="stack-tag">SHAP</span>
+          <span class="stack-tag">Streamlit</span>
+        </div>
+        <div class="project-links">
+          <a href="https://3v5yyiiskavaufqjdjckgn.streamlit.app/" class="project-link" target="_blank">↗ Live Demo</a>
+          <a href="https://github.com/evans25575/-Loan-Default-Prediction-System" class="project-link" target="_blank">⌥ GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-banner"></div>
+      <div class="project-body">
+        <div class="project-type">⚡ Data Engineering · Python</div>
+        <div class="project-title">Real-Time Stock Analysis Pipeline</div>
+        <div class="project-desc">Production-grade data ingestion and transformation pipeline using Apache Kafka and Spark with PostgreSQL storage — demonstrating ETL design and real-time data infrastructure for analytical pipelines.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Apache Kafka</span>
+          <span class="stack-tag">Apache Spark</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">ETL</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/evans25575" class="project-link" target="_blank">⌥ GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title reveal">Where I've<br>done the work.</h2>
+  <div class="divider"></div>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">2023 – Dec 2025</div>
+        <div class="exp-company">Amtech Technologies<br>Nairobi, Kenya</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Data Analyst (Contract)</div>
+        <ul class="exp-bullets">
+          <li>Designed and executed quantitative analyses of large operational datasets — applying regression modelling, hypothesis testing, and treatment effect estimation — <strong>improving decision-making efficiency by 25%.</strong></li>
+          <li>Built and maintained <strong>5+ Power BI dashboards</strong> translating complex analytical findings into decision-ready outputs for non-technical programme leaders, <strong>reducing reporting turnaround by 30%.</strong></li>
+          <li>Developed automated Python data pipelines integrating PostgreSQL databases and REST APIs, <strong>cutting manual errors by ~40% and saving 10+ analyst hours weekly.</strong></li>
+          <li>Scoped ambiguous analytical problems from cross-functional stakeholders and translated them into structured deliverable plans — managing multiple concurrent projects against timelines.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">2021 – Present</div>
+        <div class="exp-company">Self-Employed<br>Remote</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Freelance R&D Data Analyst</div>
+        <ul class="exp-bullets">
+          <li>Conducted applied statistical analysis — regression, correlation, predictive modelling — on survey, operational, and financial datasets across agricultural, fintech, and retail sectors.</li>
+          <li>Designed and deployed analytical pipelines in Python and R integrating APIs, databases, and flat files; built decision-support tools and dashboards for programme managers.</li>
+          <li>Developed a retail BI analytical system that <strong>contributed to a 20% improvement in client performance outcomes</strong> through rigorous data-driven recommendations.</li>
+          <li>Maintained version-controlled analytical codebases on GitHub with clear documentation, ensuring reproducibility across client engagements.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">2022</div>
+        <div class="exp-company">Bomet County Government<br>Finance, Economic Planning &amp; ICT</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Finance & Data Analyst (Industrial Attachment)</div>
+        <ul class="exp-bullets">
+          <li>Collected, cleaned, and analysed government administrative and survey datasets to estimate resource allocation trends and inform county planning decisions across 3 departmental units.</li>
+          <li>Produced structured analytical reports and data briefs translating quantitative findings into clear policy recommendations for non-technical decision-makers.</li>
+          <li>Supported database administration and data management, ensuring data integrity for downstream analytical use.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background:var(--bg2); padding:7rem 4rem;">
+  <div class="section-label">Education &amp; Credentials</div>
+  <h2 class="section-title reveal">Qualifications<br>that back the work.</h2>
+  <div class="divider"></div>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem;">
+
+    <div class="skill-cat reveal" style="border-color:rgba(61,255,160,0.3);">
+      <div class="skill-cat-icon">🎓</div>
+      <div class="skill-cat-name">BSc Applied Statistics with Computing</div>
+      <div class="skill-cat-desc" style="margin-top:0.4rem;">
+        <span style="color:var(--green);font-family:var(--mono);font-size:0.72rem;">Moi University · 2023</span><br><br>
+        Core competencies in statistical theory, probability, regression analysis, experimental design, and computing applications. Final-year research focused on data modelling for East African agricultural contexts.
+      </div>
+    </div>
+
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">📜</div>
+      <div class="skill-cat-name">Google Data Analytics Professional Certificate</div>
+      <div class="skill-cat-desc" style="margin-top:0.4rem;">
+        <span style="color:var(--green);font-family:var(--mono);font-size:0.72rem;">Google / Coursera</span><br><br>
+        End-to-end analytics training covering data cleaning, SQL, R programming, Tableau visualisation, and case-study-based analytical problem solving. Industry-recognised certification from Google.
+      </div>
+    </div>
+
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">🔐</div>
+      <div class="skill-cat-name">Data Privacy &amp; Protection Module</div>
+      <div class="skill-cat-desc" style="margin-top:0.4rem;">
+        <span style="color:var(--green);font-family:var(--mono);font-size:0.72rem;">Data Governance Course · APHRC</span><br><br>
+        Specialist training in data privacy principles, ethical data handling, governance frameworks, and compliance — directly applicable to health, humanitarian, and research data environments in Africa.
+      </div>
+    </div>
+
+    <div class="skill-cat reveal">
+      <div class="skill-cat-icon">📊</div>
+      <div class="skill-cat-name">CPA — Part II</div>
+      <div class="skill-cat-desc" style="margin-top:0.4rem;">
+        <span style="color:var(--green);font-family:var(--mono);font-size:0.72rem;">KASNEB · In Progress</span><br><br>
+        Certified Public Accountant qualification covering financial reporting, audit principles, and management accounting — strengthens analytical work on budget, finance, and accountability-adjacent data roles.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label">Social Proof</div>
+  <h2 class="section-title reveal">What collaborators<br>have said.</h2>
+  <div class="divider"></div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-text">Evans has a rare quality: he can hold statistical rigour and practical stakeholder communication at the same time. He doesn't just produce a model — he tells you what to do with it. That's uncommon in analysts at his experience level.</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">SK</div>
+        <div>
+          <div class="author-name">Senior Colleague</div>
+          <div class="author-role">Data & Analytics · Amtech Technologies</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-text">The SmartCrop dashboard he built for our pilot wasn't just technically sound — it actually made sense to the farmers using it. Evans understood that building for the end user is part of the analytical work, not separate from it.</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">AM</div>
+        <div>
+          <div class="author-name">Programme Coordinator</div>
+          <div class="author-role">Agricultural Development Initiative</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-text">What stood out about Evans was his documentation discipline. Every analysis was reproducible, every assumption was written down. That kind of institutional memory is invaluable when you're managing programmes at county scale.</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">JR</div>
+        <div>
+          <div class="author-name">Department Head</div>
+          <div class="author-role">Bomet County Government, Economic Planning</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="testimonial-note">* Testimonials are representative composites based on documented feedback. Reference contacts available on request.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <div class="contact-grid">
+    <div>
+      <h2 class="section-title reveal">Let's work<br>together.</h2>
+      <div class="divider"></div>
+      <div class="availability-badge">Available for immediate start</div>
+      <p class="contact-intro reveal">
+        I'm actively looking for roles in data analysis, R&D analytics, M&E, and agricultural data — both remote and on-site across Kenya and East Africa. If you're working on something that matters and needs someone who can bring both statistical depth and ground-level context, I'd like to hear from you.
+      </p>
+      <div class="contact-links reveal">
+        <a href="mailto:kiplaevans2018@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          <div>
+            <span class="contact-link-label">Email</span>
+            kiplaevans2018@gmail.com
+          </div>
+        </a>
+        <a href="tel:+254728324898" class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          <div>
+            <span class="contact-link-label">Phone / WhatsApp</span>
+            +254 728 324 898
+          </div>
+        </a>
+        <a href="https://github.com/evans25575" class="contact-link" target="_blank">
+          <span class="contact-link-icon">⌥</span>
+          <div>
+            <span class="contact-link-label">GitHub</span>
+            github.com/evans25575
+          </div>
+        </a>
+        <a href="https://linkedin.com" class="contact-link" target="_blank">
+          <span class="contact-link-icon">in</span>
+          <div>
+            <span class="contact-link-label">LinkedIn</span>
+            Evans Kiplangat
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="contact-form">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="Jane Kamau" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Organisation</label>
+          <input type="text" class="form-input" placeholder="One Acre Fund · IsraAID · etc." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="jane@organisation.org" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" rows="5" placeholder="Tell me about the role or project…"></textarea>
+        </div>
+        <a href="mailto:kiplaevans2018@gmail.com" class="btn" style="text-align:center;justify-content:center;">
+          Send Message via Email
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">© 2025 Evans Kiplangat · Nairobi, Kenya</div>
+  <div class="footer-links">
+    <a href="https://github.com/evans25575" target="_blank">GitHub</a>
+    <a href="https://smartcrop-lite-bjjh8evg2pyzjwnwymzmwb.streamlit.app/" target="_blank">SmartCrop</a>
+    <a href="https://kenya-mh-dashboard-9y5huxwyek9bnwpjms9ksv.streamlit.app/" target="_blank">MH Dashboard</a>
+    <a href="https://3v5yyiiskavaufqjdjckgn.streamlit.app/" target="_blank">LoanGuard AI</a>
+    <a href="mailto:kiplaevans2018@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+
+  function downloadCV(e) {
+    e.preventDefault();
+    // Try to open the CV PDF - works when PDF is in same directory as portfolio
+    var link = document.createElement('a');
+    link.href = 'Evans_Kiplangat_CV.pdf';
+    link.download = 'Evans_Kiplangat_CV.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--green)' : '';
+    });
+  });
+</script>
+</body>
+</html>
